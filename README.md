@@ -42,3 +42,4 @@
 
 ## Notice
 ### You can use and edit this as you wish. It's just a project i did in about an hour because i was bored.
+* maybe i also add something like a total message count and more
