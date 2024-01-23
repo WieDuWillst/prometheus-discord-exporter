@@ -39,3 +39,6 @@
 
 ## Grafana
 ### [dashbord.json](https://pastebin.com/BgA9Ux2A)
+
+## Notice
+### You can use and edit this as you wish. It's just a project i did in about an hour because i was bored.
