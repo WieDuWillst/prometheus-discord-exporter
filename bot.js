@@ -11,7 +11,7 @@ const client = new Client({
         IntentsBitField.Flags.GuildMembers,
         IntentsBitField.Flags.GuildPresences,
         IntentsBitField.Flags.GuildModeration,
-        IntentsBitField.Flags.MessageContent,
+        IntentsBitField.Flags.MessageContent
     ],
     partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 });
@@ -33,10 +33,27 @@ function getRoleCount() {
     return guild.roles.cache.size;
 }
 
+function getBannedCount() {
+    const guild = client.guilds.cache.get(process.env.GUILD_ID)
+    const bans = guild.bans.cache.size;
+
+    return bans;
+}
+
+function getBotCount() {
+    const guild = client.guilds.cache.get(process.env.GUILD_ID)
+    const bots = guild.members.cache.filter(member => member.user.bot).size;
+
+    return bots;
+}
+
+
 
 module.exports = {
     getChannelCount,
     getMemberCount,
     getRoleCount,
-    client
+    getBannedCount,
+    getBotCount,
+    client,
 };

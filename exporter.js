@@ -2,7 +2,7 @@ const dotEnv = require('dotenv');
 const prometheus = require('prom-client');
 const express = require('express');
 dotEnv.config();
-const {getChannelCount, getMemberCount, getRoleCount, client} = require('./bot');
+const {getChannelCount, getMemberCount, getRoleCount, client, getBannedCount, getBotCount} = require('./bot');
 const app = express();
 
 const totalMembers = new prometheus.Gauge({
@@ -18,6 +18,16 @@ const totalChannels = new prometheus.Gauge({
 const totalRoles = new prometheus.Gauge({
     name: 'discord_total_roles',
     help: 'Total roles in the server'
+});
+
+const bannedUsers = new prometheus.Gauge({
+    name: 'discord_banned_users',
+    help: 'Total banned users in the server'
+});
+
+const botCount = new prometheus.Gauge({
+    name: 'discord_bot_count',
+    help: 'Total bots in the server'
 });
 
 const httpRequestDurationMicroseconds = new prometheus.Histogram({
@@ -39,15 +49,14 @@ app.get('/metrics', (req, res) => {
     totalMembers.set(getMemberCount());
     totalChannels.set(getChannelCount());
     totalRoles.set(getRoleCount());
-    
-    res.set('Content-Type', prometheus.register.contentType);
+    bannedUsers.set(getBannedCount());
+    botCount.set(getBotCount());
 
-    // Use .then() to handle the resolved value of the Promise
+    res.set('Content-Type', prometheus.register.contentType);
     prometheus.register.metrics().then(metrics => {
         res.end(metrics);
         end({ route: req.url, method: req.method });
     }).catch(error => {
-        // Handle any errors that may occur during the Promise resolution
         console.error('Error getting metrics:', error);
         res.status(500).send('Internal Server Error');
         end({ route: req.url, method: req.method });
