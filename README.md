@@ -26,7 +26,7 @@
 
 * (add it to autostart)
 
-* start the exporter
+* start the exporter (exporter.js is the index file)
 
 * the exporter is now available under the port 9191
 
