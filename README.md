@@ -8,6 +8,10 @@
 
 * Role Count
 
+* Banned User Count
+
+* Bot Count
+
   
 
 ##  Setup
