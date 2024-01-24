@@ -6,7 +6,7 @@ const {getChannelCount, getMemberCount, getRoleCount, client, getBannedCount, ge
 const app = express();
 
 const totalMembers = new prometheus.Gauge({
-    name: 'total_members',
+    name: 'discord_total_members',
     help: 'Total members in the server'
 });
 
